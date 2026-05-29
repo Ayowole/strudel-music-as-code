@@ -1,0 +1,191 @@
+//  140 BPM · Hyper Acid Techno · 4 Blocks
+
+// setcps(140/60/4)
+
+// BLOCK 1 — INTRO: Raw kick + first acid stab. Warning shot.
+
+// $: stack(
+
+//   // --- KICK — distorted, punchy ---
+//   sound("bd*4")
+//     .gain(1)
+//     .shape(0.55)           // heavy waveshaper — gritty transient
+//     .lpf(160)             // tight low-pass, only thump
+//     .room(0.04),           // nearly dry — no smear
+
+//   // --- ACID STAB — single shot per bar ---
+//   note("a1 ~ ~ ~")
+//     .s("sawtooth")
+//     .gain(0.65)
+//     .lpf(400)             // filter closed — dark stab
+//     .resonance(20)        // high resonance = acid character
+//     .attack(0.005).decay(0.18).sustain(0)  // plucky envelope
+//     .crush(4),             // heavy bit-crush — lo-fi degradation
+
+//   // --- RIMSHOT — syncopated kick sidekick ---
+//   sound("~ rim ~ rim")
+//     .gain(0.5)
+//     .hpf(3000)             // bright, crack only
+//     .speed(1.4)            // pitch up for snap
+//     .room(0.2)
+
+// )
+
+// BLOCK 2 — GROW: Acid line awakens. Filter opens. Percussion stacks.
+
+//  $: stack(
+
+//    // --- KICK --- harder than intro ---
+//   sound("bd*4")
+//     .gain(1)
+//     .shape(0.7)              // more waveshaper crunch
+//     .lpf(170)
+//     .room(0.03),
+
+//   // --- ACID BASSLINE — 16-step sequence, filter sweeping up ---
+//   note("a1 ~ c2 ~ a1 g1 ~ bb1 a1 ~ c2 e2 ~ a1 bb1 g1")
+//     .s("sawtooth")
+//     .gain(0.8)
+//     .lpf(sine.range(200, 2800).slow(8))   // filter sweeps over 8 bars
+//     .resonance(28)           // screaming resonance — classic 303
+//     .attack(0.003).decay(0.1).sustain(0.2).release(0.05)
+//     .distort(0.5)            // soft-clip adds harmonics
+//     .crush(5),               // bit-crush for grit
+
+//   // --- CLAP — backbeat with slight swing ---
+//   sound("~ cp ~ cp")
+//     .gain(0.7)
+//     .room(0.3).roomsize(0.6)
+//     .hpf(2500)
+//     .shape(0.2),             // slight clap grit
+
+//   // --- CLOSED HH — 16th note grid, velocity random ---
+//   sound("hh*16")
+//     .gain(rand.range(0.15, 0.45))  // velocity humanisation
+//     .hpf(9000)
+//     .pan(rand),              // random stereo scatter
+
+//   // --- OPEN HH — accents on offbeats ---
+//   sound("~ oh ~ oh")
+//     .gain(0.35)
+//     .hpf(7000)
+//     .delay(0.2).delaytime(0.125)  // short 32nd note echo
+//     .pan(0.7)                // push to right channel
+
+// )
+
+
+// BLOCK 3 — CHORUS: Everything maxed. Dual acid lines. Percussion chaos.
+
+// $: stack(
+
+//   // --- KICK — maximum violence ---
+//   sound("bd*4")
+//     .gain(1)
+//     .shape(0.85)             // near-full distortion
+//     .lpf(175)
+//     .room(0.02),             // completely dry
+
+//   // --- ACID LINE 1 — main riff, filter wide open ---
+//   note("a1 c2 a1 g1 bb1 a1 e2 ~ a1 c2 d2 ~ a1 bb1 g1 f1")
+//     .s("sawtooth")
+//     .gain(0.85)
+//     .lpf(sine.range(800, 4500).slow(4))  // fast filter sweep, 4 bars
+//     .resonance(32)           // fully screaming 303
+//     .attack(0.002).decay(0.08).sustain(0.15).release(0.04)
+//     .distort(0.7)            // heavy harmonics
+//     .crush(6)                // subtle bit texture
+//     .room(0.08),
+
+//   // --- ACID LINE 2 — octave up, counter-melody ---
+//   note("~ a2 ~ c3 ~ bb2 ~ g2 ~ a2 ~ e3 ~ d3 ~")
+//     .s("sawtooth")
+//     .gain(0.55)
+//     .lpf(sine.range(1200, 5000).slow(3))
+//     .resonance(25)
+//     .attack(0.004).decay(0.12).sustain(0.1).release(0.04)
+//     .distort(0.4)
+//     .pan(sine.range(0.1, 0.9).slow(2))
+//     .room(0.12),
+
+//   // --- CLAP LAYER — doubled, tight ---
+//   sound("~ [cp,cp] ~ [cp,cp]")
+//     .gain(0.75)
+//     .room(0.25).roomsize(0.5)
+//     .hpf(3000)
+//     .shape(0.3),
+
+//   // --- HH 16ths — relentless machine pulse ---
+//   sound("hh*16")
+//     .gain(rand.range(0.2, 0.5))
+//     .hpf(8500)
+//     .speed(rand.range(0.95, 1.05))  // micro pitch variation
+//     .pan(rand),
+
+//   // --- PERC ROLLS — euclidean rhythm fills ---
+//   sound("perc(11,16)")
+//     .gain(0.3)
+//     .speed(rand.range(0.4, 2.2))  // pitch chaos
+//     .hpf(5000)
+//     .pan(rand)
+//     .room(0.4),
+
+//   // --- SUB BASS — underpins acid lines ---
+//   note("a0 ~ a0 ~ a0 ~ g0 ~")
+//     .s("sine")
+//     .gain(0.6)
+//     .lpf(80)                 // pure sub, no harmonics
+//     .attack(0.01).release(0.3),
+
+//   // --- STAB CHORD — 8-bar accent, slaps on beat 3 ---
+//   note("~ ~ [a2,c3,e3] ~")
+//     .s("sawtooth")
+//     .gain(0.35)
+//     .lpf(1600)
+//     .resonance(14)
+//     .attack(0.003).release(0.15)
+//     .distort(0.6)
+//     .room(0.5).roomsize(0.7)
+
+// )
+
+
+// BLOCK 4 — OUTRO: Acid bleeds out. Filter murders itself.
+
+// $: stack(
+
+//   // --- KICK — dropping every 4 bars ---
+//   sound("bd*4")
+//     .gain(sine.range(0.2, 1).slow(8).early(0))  // decaying gain envelope
+//     .shape(0.5)
+//     .lpf(160)
+//     .room(sine.range(0.03, 0.6).slow(8)),  // reverb grows as kick dies
+
+//   // --- ACID LINE — filter CLOSES over 16 bars ---
+//   note("a1 ~ c2 ~ a1 g1 ~ bb1")
+//     .s("sawtooth")
+//     .gain(sine.range(0, 0.8).slow(16))
+//     .lpf(sine.range(60, 3000).slow(16).early(0.5))  // filter sweeps DOWN
+//     .resonance(35)           // resonance maxes — self-oscillating scream
+//     .attack(0.003).decay(0.1).sustain(0.1).release(0.05)
+//     .distort(0.9)            // full saturation as it dies
+//     .crush(2)                // heavy degradation at the end
+//     .room(0.7).roomsize(0.9),
+
+//   // --- DRONE — last survivor, just a tone ---
+//   note("a0")
+//     .s("sawtooth")
+//     .gain(sine.range(0, 0.25).slow(16))
+//     .lpf(sine.range(40, 300).slow(16))
+//     .resonance(40)           // filter self-oscillation — eerie sine
+//     .attack(8).release(12)
+//     .room(0.99).roomsize(0.99)  // pure reverb wash
+//     .delay(0.9).delaytime(0.5).delayfeedback(0.7),  // echoes into void
+
+//   // --- SPARSE HH — last pulse of life ---
+//   sound("~ ~ hh ~")
+//     .gain(sine.range(0, 0.3).slow(16))
+//     .hpf(9000)
+//     .delay(0.6).delaytime(0.375).delayfeedback(0.5)  // dotted delay dissolves
+
+// )
