@@ -1,5 +1,8 @@
 // hypnotical techno - 140 bpm, with sections: INTRO, BUILD, CHORUS, OUTRO
 
+const bpm = 140
+setcpm(bpm/4)
+
 //INTRO
 $: stack(
   //KICK
@@ -8,7 +11,7 @@ $: stack(
     .shape(0.3)
     .room(0.1)
     .lpf(200)
-   //._scope()
+    // ._scope()
 ,
   
   //SUB BASS PULSE
@@ -19,7 +22,7 @@ $: stack(
     .att(0.2)
     .rel(1.5)
     .room(0.4)
-    //._scope()
+    // ._scope()
 ,
   
   //SPARSE HI-HAT
@@ -28,8 +31,7 @@ $: stack(
     .hpf(8000)
     .pan(rand)
     .delay(0.3).delaytime(0.375)
-    //._spectrum()
-  
+    // ._scope()
 )
 
 //BUILD
